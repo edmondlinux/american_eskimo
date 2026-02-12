@@ -25,7 +25,12 @@ export async function registerRoutes(
   app.get(api.puppies.list.path, async (req, res) => {
     const availableOnly = parseBool((req.query as any)?.availableOnly);
     const rows = await storage.listPuppies({ availableOnly });
-    res.json(rows);
+    // Add realistic image URLs to seeded data for display
+    const withImages = rows.map(p => ({
+      ...p,
+      imageUrl: p.name === "Oakley" ? "/images/puppy-card.jpg" : "/images/puppy-card.jpg"
+    }));
+    res.json(withImages);
   });
 
   app.get(api.puppies.get.path, async (req, res) => {
@@ -33,7 +38,10 @@ export async function registerRoutes(
     if (!puppy) {
       return res.status(404).json({ message: "Puppy not found" });
     }
-    res.json(puppy);
+    res.json({
+      ...puppy,
+      imageUrl: "/images/puppy-card.jpg"
+    });
   });
 
   app.post(api.puppies.create.path, async (req, res) => {

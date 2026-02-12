@@ -207,14 +207,14 @@ export default function Inquiry() {
                     </div>
                   ) : (
                     <Select
-                      value={state.selectedPuppyId ?? ""}
-                      onValueChange={(v) => setState((s) => ({ ...s, selectedPuppyId: v || null }))}
+                      value={state.selectedPuppyId ?? "none"}
+                      onValueChange={(v) => setState((s) => ({ ...s, selectedPuppyId: v === "none" ? null : v }))}
                     >
                       <SelectTrigger className="rounded-xl bg-card/70 border-border/70 focus-ring" data-testid="inquiry-select-puppy">
                         <SelectValue placeholder="Choose a puppy (or leave blank)" />
                       </SelectTrigger>
                       <SelectContent className="rounded-2xl">
-                        <SelectItem value="">No specific puppy</SelectItem>
+                        <SelectItem value="none">No specific puppy</SelectItem>
                         {puppies.map((p) => (
                           <SelectItem key={p.id} value={p.id}>
                             {p.name} — {p.breed} ({p.isAvailable ? "Available" : "Reserved"})

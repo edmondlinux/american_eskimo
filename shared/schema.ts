@@ -30,6 +30,7 @@ export const puppies = pgTable("puppies", {
   age: text("age").notNull(),
   temperament: text("temperament").notNull(),
   price: integer("price").notNull(),
+  imageUrl: text("image_url"),
   shortDescription: text("short_description").notNull(),
   description: text("description").notNull(),
   isAvailable: boolean("is_available").notNull().default(true),
