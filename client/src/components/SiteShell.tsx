@@ -176,7 +176,7 @@ export function SiteShell({
                 <img src={logo} alt="Breeder logo" className="h-10 w-10 rounded-2xl border border-border/70 bg-card p-1 shadow-sm" />
                 <div>
                   <div className="text-lg font-semibold" style={{ fontFamily: "var(--font-serif)" }}>
-                    Willow & Whelp
+                    American Eskimo
                   </div>
                   <div className="text-sm text-muted-foreground">Classical care. Modern standards. Lifelong support.</div>
                 </div>
@@ -275,7 +275,7 @@ export function SiteShell({
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Willow & Whelp. All rights reserved.
+              © {new Date().getFullYear()} American Eskimo. All rights reserved.
             </div>
             <div className="text-xs text-muted-foreground">
               Crafted with care · Temperament-first placements

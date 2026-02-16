@@ -8,7 +8,7 @@ export default function RefundPolicy() {
   return (
     <SiteShell>
       <Seo
-        title="Refund Policy — Willow & Whelp"
+        title="Refund Policy — American Eskimo"
         description="Read our refund policy. Clear terms, calm expectations, and an emphasis on responsible placements."
       />
 

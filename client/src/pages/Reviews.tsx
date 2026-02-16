@@ -21,7 +21,7 @@ export default function Reviews() {
   return (
     <SiteShell>
       <Seo
-        title="Reviews — Willow & Whelp"
+        title="Reviews — American Eskimo"
         description="Read authentic testimonials from families. We believe in transparency and calm, thorough communication."
       />
 

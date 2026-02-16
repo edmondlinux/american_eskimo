@@ -157,7 +157,7 @@ export default function Dashboard() {
 
   return (
     <SiteShell>
-      <Seo title="Dashboard — Willow & Whelp" description="Manage puppy listings, review inquiries, and curate testimonials." />
+      <Seo title="Dashboard — American Eskimo" description="Manage puppy listings, review inquiries, and curate testimonials." />
 
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">

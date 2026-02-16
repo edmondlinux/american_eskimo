@@ -10,7 +10,7 @@ export default function Contact() {
   return (
     <SiteShell>
       <Seo
-        title="Contact Us — Willow & Whelp"
+        title="Contact Us — American Eskimo"
         description="Questions about temperament, timing, or raising approach? Reach out, or start with a simple inquiry."
       />
 
@@ -25,7 +25,7 @@ export default function Contact() {
 
           <div className="mt-6 grid gap-4">
             <InfoCard title="Email" icon={<Mail className="h-5 w-5" />} data-testid="contact-email">
-              hello@willowandwhelp.example
+              hello@americaneskimo.example
             </InfoCard>
             <InfoCard title="Phone" icon={<Phone className="h-5 w-5" />} data-testid="contact-phone">
               (555) 013-2026

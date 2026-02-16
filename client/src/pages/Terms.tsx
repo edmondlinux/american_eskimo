@@ -8,8 +8,8 @@ export default function Terms() {
   return (
     <SiteShell>
       <Seo
-        title="Terms of Service — Willow & Whelp"
-        description="Read the terms of service for Willow & Whelp. Replace this template with your actual terms."
+        title="Terms of Service — American Eskimo"
+        description="Read the terms of service for American Eskimo. Replace this template with your actual terms."
       />
 
       <div className="surface-card grain-overlay rounded-[2rem] border border-border/70 p-6 sm:p-10">

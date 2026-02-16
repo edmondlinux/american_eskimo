@@ -39,9 +39,9 @@ export default function Home() {
   return (
     <SiteShell tone="hero">
       <Seo
-        title="Willow & Whelp — Ethical Puppy Breeder"
+        title="American Eskimo — Ethical Puppy Breeder"
         description="A classical, temperament-first breeder experience. Meet available puppies, read featured family reviews, and submit an inquiry with confidence."
-        ogTitle="Willow & Whelp"
+        ogTitle="American Eskimo"
         ogDescription="Ethical breeding, transparent care, and lifelong support."
       />
 

@@ -28,7 +28,7 @@ export default function Shop() {
   return (
     <SiteShell>
       <Seo
-        title="Shop — Willow & Whelp"
+        title="Shop — American Eskimo"
         description="Browse available puppies. Each listing includes temperament notes, age, and an inquiry button to begin the conversation."
       />
 

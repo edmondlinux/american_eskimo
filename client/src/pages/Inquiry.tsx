@@ -110,7 +110,7 @@ export default function Inquiry() {
   return (
     <SiteShell>
       <Seo
-        title="Inquiry — Willow & Whelp"
+        title="Inquiry — American Eskimo"
         description="Start an inquiry for a puppy placement. Share your lifestyle, preferences, and timeline so we can recommend the best fit."
       />
 
