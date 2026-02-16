@@ -51,8 +51,8 @@ export default function Home() {
             key={idx}
             className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
               idx === currentImageIndex 
-                ? "opacity-100 scale-100 translate-x-0 z-0" 
-                : "opacity-0 scale-110 translate-x-4 z-[-1]"
+                ? "opacity-100 scale-100 rotate-0 z-0" 
+                : "opacity-0 scale-95 -rotate-1 z-[-1]"
             }`}
           >
             <img
