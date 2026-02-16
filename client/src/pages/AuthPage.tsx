@@ -45,7 +45,7 @@ export default function AuthPage() {
     },
     onSuccess: (user) => {
       queryClient.setQueryData(["/api/user"], user);
-      setLocation("/");
+      window.location.href = "/";
     },
     onError: (error: Error) => {
       toast({
