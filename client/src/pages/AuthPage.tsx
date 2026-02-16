@@ -1,4 +1,3 @@
-import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
 
 const authSchema = z.object({
   email: z.string().email(),
@@ -27,7 +27,7 @@ const authSchema = z.object({
 export default function AuthPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const [isLogin, setIsLogin] = React.useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
