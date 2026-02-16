@@ -11,6 +11,7 @@ import { useReviews } from "@/hooks/use-reviews";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, HeartHandshake, ShieldCheck, Sparkles, PawPrint, ScrollText, ChevronLeft, ChevronRight } from "lucide-react";
+import { GoogleReviewCard } from "@/components/GoogleReviewCard";
 import img3101 from "@assets/IMG_3101_1771255452903.webp";
 import img3102 from "@assets/IMG_3102_1771255452903.jpeg";
 import img3103 from "@assets/IMG_3103_1771255452903.jpeg";
@@ -136,6 +137,11 @@ export default function Home() {
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
+      </section>
+
+      {/* Google Reviews */}
+      <section className="mt-12">
+        <GoogleReviewCard />
       </section>
 
       {/* Featured puppies */}
