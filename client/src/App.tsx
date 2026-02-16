@@ -13,6 +13,7 @@ import RefundPolicy from "@/pages/RefundPolicy";
 import Terms from "@/pages/Terms";
 import Inquiry from "@/pages/Inquiry";
 import Dashboard from "@/pages/Dashboard";
+import AuthPage from "@/pages/AuthPage";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/terms" component={Terms} />
       <Route path="/inquiry" component={Inquiry} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/auth" component={AuthPage} />
       <Route component={NotFound} />
     </Switch>
   );
