@@ -49,8 +49,10 @@ export default function Home() {
         {HERO_IMAGES.map((img, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentImageIndex ? "opacity-100 z-0" : "opacity-0 z-[-1]"
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              idx === currentImageIndex 
+                ? "opacity-100 scale-100 translate-x-0 z-0" 
+                : "opacity-0 scale-110 translate-x-4 z-[-1]"
             }`}
           >
             <img
