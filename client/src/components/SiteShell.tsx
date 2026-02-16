@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { PawPrint, Menu, Shield, Mail, Phone, MapPin } from "lucide-react";
+import { PawPrint, Menu, Shield, Mail, Phone, MapPin, LogOut, User as UserIcon } from "lucide-react";
 import logo from "@/assets/logo.png.png";
-import { useCurrentUser } from "@/hooks/use-auth";
+import { useCurrentUser, useLogout } from "@/hooks/use-auth";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -45,6 +45,7 @@ export function SiteShell({
   tone?: "default" | "hero";
 }) {
   const { data: user } = useCurrentUser();
+  const logout = useLogout();
 
   return (
     <div className={cn("min-h-screen bg-atelier grain-overlay", tone === "hero" && "relative")}>
@@ -102,20 +103,43 @@ export function SiteShell({
                   Inquiry
                 </Link>
 
-                <Link
-                  href="/dashboard"
-                  className={cn(
-                    "hidden md:inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200 focus-ring",
-                    "border border-border/70 bg-card/70 text-foreground hover:bg-secondary"
-                  )}
-                  data-testid="nav-dashboard"
-                >
-                  <Shield className="h-4 w-4 text-accent" />
-                  <span>Dashboard</span>
-                  {user?.role === "admin" ? (
+                {user?.role === "admin" && (
+                  <Link
+                    href="/dashboard"
+                    className={cn(
+                      "hidden md:inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all duration-200 focus-ring",
+                      "border border-border/70 bg-card/70 text-foreground hover:bg-secondary"
+                    )}
+                    data-testid="nav-dashboard"
+                  >
+                    <Shield className="h-4 w-4 text-accent" />
+                    <span>Dashboard</span>
                     <span className="ml-1 rounded-lg bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">Admin</span>
-                  ) : null}
-                </Link>
+                  </Link>
+                )}
+
+                <div className="flex items-center gap-2 ml-2">
+                  {user ? (
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="rounded-xl h-9 px-3 text-muted-foreground hover:text-foreground"
+                      onClick={() => logout.mutate()}
+                      disabled={logout.isPending}
+                      data-testid="nav-logout"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      <span className="hidden sm:inline">Logout</span>
+                    </Button>
+                  ) : (
+                    <Link href="/auth">
+                      <Button variant="ghost" size="sm" className="rounded-xl h-9 px-3 text-muted-foreground hover:text-foreground" data-testid="nav-login">
+                        <UserIcon className="h-4 w-4 mr-2" />
+                        <span>Login</span>
+                      </Button>
+                    </Link>
+                  )}
+                </div>
 
                 <Sheet>
                   <SheetTrigger asChild>
@@ -143,13 +167,15 @@ export function SiteShell({
                         </Link>
                       ))}
                       <Separator className="my-2" />
-                      <Link
-                        href="/dashboard"
-                        className="rounded-xl border border-border/70 bg-card px-4 py-3 font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
-                        data-testid="nav-mobile-dashboard"
-                      >
-                        Dashboard
-                      </Link>
+                      {user?.role === "admin" && (
+                        <Link
+                          href="/dashboard"
+                          className="rounded-xl border border-border/70 bg-card px-4 py-3 font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
+                          data-testid="nav-mobile-dashboard"
+                        >
+                          Dashboard
+                        </Link>
+                      )}
                       <Link
                         href="/inquiry"
                         className="rounded-xl bg-gradient-to-r from-primary to-primary/85 px-4 py-3 font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-ring btn-sheen"
@@ -157,6 +183,24 @@ export function SiteShell({
                       >
                         Inquiry
                       </Link>
+                      {user ? (
+                        <Button 
+                          variant="outline" 
+                          className="rounded-xl px-4 py-6 font-semibold justify-start"
+                          onClick={() => logout.mutate()}
+                          disabled={logout.isPending}
+                        >
+                          <LogOut className="h-4 w-4 mr-2" />
+                          Logout ({user.name})
+                        </Button>
+                      ) : (
+                        <Link
+                          href="/auth"
+                          className="rounded-xl border border-border/70 bg-card px-4 py-3 font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
+                        >
+                          Login / Sign Up
+                        </Link>
+                      )}
                     </div>
                   </SheetContent>
                 </Sheet>

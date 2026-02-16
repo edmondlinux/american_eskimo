@@ -60,7 +60,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getCurrentUser(): Promise<CurrentUserResponse> {
-    // MVP: no real auth wired. Frontend can treat null as "not signed in".
+    // Return null since setupAuth handles current user retrieval via req.user
     return null;
   }
 

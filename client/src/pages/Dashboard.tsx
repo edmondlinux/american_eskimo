@@ -33,32 +33,18 @@ function SignInRequired() {
             Sign-in required
           </div>
           <div className="mt-2 text-sm text-muted-foreground">
-            This dashboard is protected. For MVP, we check <code className="px-1.5 py-0.5 rounded bg-secondary text-foreground">/api/me</code>. If that endpoint isn’t implemented yet, you’ll see this screen.
+            Please log in with an admin account to access the dashboard.
           </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-3xl border border-border/70 bg-card/70 p-5 shadow-sm">
-              <div className="text-sm font-semibold">Backend note</div>
-              <div className="mt-1 text-sm text-muted-foreground">
-                Implement <code>/api/me</code> to return current user or <code>null</code>.
-              </div>
-            </div>
-            <div className="rounded-3xl border border-border/70 bg-card/70 p-5 shadow-sm">
-              <div className="text-sm font-semibold">Roles</div>
-              <div className="mt-1 text-sm text-muted-foreground">
-                Admin users can manage puppy listings and reviews; all signed-in users can view inquiries.
-              </div>
-            </div>
-          </div>
-
-          <Button
-            type="button"
-            className="mt-6 rounded-xl bg-gradient-to-r from-primary to-primary/85 text-primary-foreground shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all btn-sheen"
-            onClick={() => window.location.reload()}
-            data-testid="dashboard-refresh"
-          >
-            Refresh
-          </Button>
+          <Link href="/auth">
+            <Button
+              type="button"
+              className="mt-6 rounded-xl bg-gradient-to-r from-primary to-primary/85 text-primary-foreground shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all btn-sheen"
+              data-testid="dashboard-login-link"
+            >
+              Go to Login
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
