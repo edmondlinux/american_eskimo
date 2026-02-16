@@ -10,11 +10,24 @@ import { usePuppies } from "@/hooks/use-puppies";
 import { useReviews } from "@/hooks/use-reviews";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, HeartHandshake, ShieldCheck, Sparkles, PawPrint, ScrollText } from "lucide-react";
+import { ArrowRight, HeartHandshake, ShieldCheck, Sparkles, PawPrint, ScrollText, ChevronLeft, ChevronRight } from "lucide-react";
+import img3101 from "@assets/IMG_3101_1771255452903.webp";
+import img3102 from "@assets/IMG_3102_1771255452903.jpeg";
+import img3103 from "@assets/IMG_3103_1771255452903.jpeg";
+
+const HERO_IMAGES = [img3101, img3102, img3103];
 
 export default function Home() {
   const puppiesQ = usePuppies({ availableOnly: true });
   const reviewsQ = useReviews();
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const featuredPuppies = (puppiesQ.data ?? []).slice(0, 6);
   const reviews = reviewsQ.data ?? [];
@@ -31,107 +44,95 @@ export default function Home() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-gradient-to-br from-card via-card to-secondary/70 p-6 sm:p-10 surface-card">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[hsl(var(--chart-3))]/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-28 -bottom-28 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
-
-        <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1 text-xs font-bold tracking-wide text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-[hsl(var(--chart-3))]" />
-              Classical care · Modern standards
-            </div>
-
-            <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.02]">
-              Temperament-first puppies,
-              <span className="block text-primary"> raised with artistry & routine.</span>
-            </h1>
-
-            <p className="mt-4 max-w-2xl text-sm sm:text-base text-muted-foreground leading-relaxed">
-              We’re a family-run breeder devoted to ethical practices, transparent communication, and thoughtful matches.
-              Explore the shop, read what families say, and start with a simple inquiry.
-            </p>
-
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/shop"
-                className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-ring btn-sheen bg-gradient-to-r from-primary to-primary/85 text-primary-foreground shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5"
-                data-testid="home-cta-shop"
-              >
-                <PawPrint className="h-4 w-4" />
-                Browse available puppies
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/inquiry"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/70 bg-card/70 px-6 py-3 text-sm font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
-                data-testid="home-cta-inquiry"
-              >
-                Start an inquiry
-                <ScrollText className="h-4 w-4 text-muted-foreground" />
-              </Link>
-            </div>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {[
-                { icon: <ShieldCheck className="h-5 w-5 text-accent" />, title: "Health-minded", desc: "Clear routines and transparent records." },
-                { icon: <HeartHandshake className="h-5 w-5 text-primary" />, title: "Lifetime support", desc: "Guidance from pickup to adulthood." },
-                { icon: <Sparkles className="h-5 w-5 text-[hsl(var(--chart-3))]" />, title: "Enrichment", desc: "Early socialization and confidence work." },
-              ].map((f) => (
-                <div key={f.title} className="rounded-2xl border border-border/70 bg-secondary/30 p-4 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-xl border border-border/60 bg-card p-2 shadow-sm">{f.icon}</div>
-                    <div>
-                      <div className="text-sm font-semibold">{f.title}</div>
-                      <div className="text-xs text-muted-foreground">{f.desc}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+      <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-card surface-card h-[600px] lg:h-[700px]">
+        {/* Carousel Images */}
+        {HERO_IMAGES.map((img, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              idx === currentImageIndex ? "opacity-100 z-0" : "opacity-0 z-[-1]"
+            }`}
+          >
+            <img
+              src={img}
+              alt={`Hero image ${idx + 1}`}
+              className="h-full w-full object-cover"
+            />
+            {/* Dark wash for text readability */}
+            <div className="absolute inset-0 bg-black/40" />
           </div>
+        ))}
 
-          <div className="lg:col-span-5">
-            <div className="rounded-[2rem] border border-border/70 bg-gradient-to-br from-secondary/60 via-card to-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-semibold" style={{ fontFamily: "var(--font-serif)" }}>
-                    The Willow Standard
-                  </div>
-                  <div className="text-xs text-muted-foreground">Our placement checklist</div>
-                </div>
-                <div className="rounded-2xl border border-border/70 bg-card px-3 py-2 text-xs font-bold text-muted-foreground shadow-sm">
-                  5 pillars
-                </div>
+        <div className="relative h-full flex items-center px-6 sm:px-10 z-10">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center w-full">
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-3 py-1 text-xs font-bold tracking-wide text-white">
+                <Sparkles className="h-4 w-4 text-[hsl(var(--chart-3))]" />
+                Classical care · Modern standards
               </div>
 
-              <div className="mt-5 grid gap-3">
-                {[
-                  "Temperament evaluation & best-fit home matching",
-                  "Routine-based raising and early training markers",
-                  "Social exposure: sounds, surfaces, gentle novelty",
-                  "Clear communication and realistic expectations",
-                  "Thoughtful transition plan and post-placement support",
-                ].map((line, idx) => (
-                  <div key={idx} className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/70 p-4">
-                    <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-primary" />
-                    <div className="text-sm text-muted-foreground">{line}</div>
-                  </div>
-                ))}
-              </div>
+              <h1 className="mt-4 text-4xl sm:text-5xl lg:text-7xl font-semibold leading-[1.02] text-white">
+                Temperament-first puppies,
+                <span className="block text-primary-foreground/90"> raised with artistry & routine.</span>
+              </h1>
 
-              <div className="mt-5">
+              <p className="mt-4 max-w-2xl text-base sm:text-lg text-white/90 leading-relaxed font-medium">
+                We’re a family-run breeder devoted to ethical practices, transparent communication, and thoughtful matches.
+                Explore the shop, read what families say, and start with a simple inquiry.
+              </p>
+
+              <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <Link
-                  href="/contact"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border/70 bg-card/70 px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
-                  data-testid="home-cta-contact"
+                  href="/shop"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-ring btn-sheen bg-primary text-primary-foreground shadow-lg hover:-translate-y-0.5"
+                  data-testid="home-cta-shop"
                 >
-                  Ask a question
-                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  <PawPrint className="h-4 w-4" />
+                  Browse available puppies
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/inquiry"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20 focus-ring"
+                  data-testid="home-cta-inquiry"
+                >
+                  Start an inquiry
+                  <ScrollText className="h-4 w-4 text-white/80" />
                 </Link>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Carousel Controls */}
+        <div className="absolute bottom-6 right-6 flex items-center gap-3 z-20">
+          <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full bg-black/20 backdrop-blur-sm border-white/30 text-white hover:bg-black/40"
+            onClick={() => setCurrentImageIndex((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <div className="flex gap-1.5">
+            {HERO_IMAGES.map((_, idx) => (
+              <button
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === currentImageIndex ? "w-6 bg-primary" : "w-1.5 bg-white/40"
+                }`}
+                onClick={() => setCurrentImageIndex(idx)}
+              />
+            ))}
+          </div>
+          <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full bg-black/20 backdrop-blur-sm border-white/30 text-white hover:bg-black/40"
+            onClick={() => setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length)}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </section>
 
