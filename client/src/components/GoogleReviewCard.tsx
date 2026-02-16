@@ -8,11 +8,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import googleLogo from "@/assets/google-logo.png";
+
 function GoogleLogo() {
   return (
     <div className="flex items-center justify-center mb-2">
       <img
-        src="/google-logo.png"
+        src={googleLogo}
         alt="Google Logo"
         className="h-12 w-auto select-none"
       />
