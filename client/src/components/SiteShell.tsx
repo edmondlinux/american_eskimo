@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { PawPrint, Menu, Shield, Mail, Phone, MapPin, ExternalLink } from "lucide-react";
-import logo from "@assets/FBB3DFE0-5F95-49EE-8146-F5F3847A7F91_1770887833995.png";
+import logo from "@/assets/logo.png.png";
 import { useCurrentUser } from "@/hooks/use-auth";
 
 const nav = [
@@ -68,7 +68,7 @@ export function SiteShell({
                 <div className="leading-tight">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold tracking-tight text-[15px] sm:text-base" style={{ fontFamily: "var(--font-serif)" }}>
-                      Willow & Whelp
+                      American Eskimo 
                     </span>
                     <Badge variant="secondary" className="hidden sm:inline-flex border-border/70 bg-card/60 text-foreground">
                       Ethical Breeding
