@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { PawPrint, Menu, Shield, Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { PawPrint, Menu, Shield, Mail, Phone, MapPin } from "lucide-react";
 import logo from "@/assets/logo.png.png";
 import { useCurrentUser } from "@/hooks/use-auth";
 
@@ -195,7 +195,7 @@ export function SiteShell({
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">hello@willowandwhelp.example</span>
+                  <span className="text-muted-foreground">americaneskimopuppiesforsale@gmail.com</span>
                 </div>
               </div>
 
@@ -254,18 +254,6 @@ export function SiteShell({
                 </div>
 
                 <div className="grid gap-2">
-                  <div className="text-sm font-semibold">Dashboard</div>
-                  <Link
-                    href="/dashboard"
-                    className="inline-flex items-center justify-between rounded-xl border border-border/70 bg-card px-3 py-2 text-sm font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
-                    data-testid="footer-link-dashboard"
-                  >
-                    Open Dashboard
-                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                  </Link>
-                  <p className="text-xs text-muted-foreground">
-                    Admin tools for listings and inquiries.
-                  </p>
                 </div>
               </div>
             </div>

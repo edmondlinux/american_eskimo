@@ -15,9 +15,9 @@ import { GoogleReviewCard } from "@/components/GoogleReviewCard";
 import img3101 from "@/assets/IMG_3101_1771255452903.webp";
 import img3102 from "@/assets/IMG_3102_1771255452903.jpeg";
 import img3103 from "@/assets/IMG_3103_1771255452903.jpeg";
-import img3104 from "@/assets/IMG_3104_1771256097303.jpeg";
 
-const HERO_IMAGES = [img3101, img3102, img3103, img3104];
+
+const HERO_IMAGES = [img3101, img3102, img3103];
 
 export default function Home() {
   const puppiesQ = usePuppies({ availableOnly: true });
