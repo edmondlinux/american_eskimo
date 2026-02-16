@@ -4,6 +4,7 @@ import {
   inquiries,
   puppies,
   reviews,
+  users,
   type CreateInquiryRequest,
   type CreatePuppyRequest,
   type CreateReviewRequest,
@@ -13,10 +14,15 @@ import {
   type UpdatePuppyRequest,
   type UpdateReviewRequest,
   type CurrentUserResponse,
+  type User,
+  type InsertUser,
 } from "@shared/schema";
 
 export interface IStorage {
   // Auth
+  getUser(id: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
   getCurrentUser(): Promise<CurrentUserResponse>;
 
   // Puppies
@@ -38,6 +44,21 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
+  async getUser(id: string): Promise<User | undefined> {
+    const [row] = await db.select().from(users).where(eq(users.id, id));
+    return row;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [row] = await db.select().from(users).where(eq(users.email, email));
+    return row;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [row] = await db.insert(users).values(insertUser).returning();
+    return row;
+  }
+
   async getCurrentUser(): Promise<CurrentUserResponse> {
     // MVP: no real auth wired. Frontend can treat null as "not signed in".
     return null;
