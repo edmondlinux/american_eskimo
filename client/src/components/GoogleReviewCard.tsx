@@ -3,12 +3,7 @@ import { cn } from "@/lib/utils";
 import { StarRating } from "@/components/StarRating";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
-const GOOGLE_COLORS = {
-  blue: "#4285F4",
-  red: "#EA4335",
-  yellow: "#FBBC05",
-  green: "#34A853",
-};
+
 
 function GoogleLogo() {
   return (
