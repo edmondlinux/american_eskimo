@@ -83,9 +83,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updatePuppy(id: string, updates: UpdatePuppyRequest): Promise<Puppy | undefined> {
+    // Ensure we don't try to update id or createdAt if they somehow sneak in
+    const { id: _, createdAt: __, ...validUpdates } = updates as any;
     const [row] = await db
       .update(puppies)
-      .set(updates)
+      .set(validUpdates)
       .where(eq(puppies.id, id))
       .returning();
     return row;
