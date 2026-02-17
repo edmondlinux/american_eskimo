@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { sendInquiryEmail, generateAdminEmailHtml, generateUserEmailHtml } from "./email";
 
 function parseBool(v: unknown): boolean | undefined {
   if (v === undefined) return undefined;
@@ -97,6 +98,33 @@ export async function registerRoutes(
     try {
       const input = api.inquiries.create.input.parse(req.body);
       const created = await storage.createInquiry(input);
+
+      // Send emails asynchronously
+      (async () => {
+        try {
+          const puppy = input.selectedPuppyId ? await storage.getPuppy(input.selectedPuppyId) : null;
+          const puppyName = puppy ? puppy.name : null;
+
+          // Notify Admin
+          if (process.env.ADMIN_EMAIL) {
+            await sendInquiryEmail({
+              to: process.env.ADMIN_EMAIL,
+              subject: `New Inquiry from ${input.fullName}`,
+              content: generateAdminEmailHtml(input, puppyName),
+            });
+          }
+
+          // Notify User
+          await sendInquiryEmail({
+            to: input.email,
+            subject: "We've received your inquiry — American Eskimo",
+            content: generateUserEmailHtml(input, puppyName),
+          });
+        } catch (emailErr) {
+          console.error("Failed to send inquiry emails:", emailErr);
+        }
+      })();
+
       res.status(201).json(created);
     } catch (err) {
       if (err instanceof z.ZodError) {

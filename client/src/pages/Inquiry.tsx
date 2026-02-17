@@ -59,10 +59,11 @@ export default function Inquiry() {
   // Sync with URL params ONLY once on mount or if explicitly changed via URL
   // but allow local state to override it
   React.useEffect(() => {
-    if (puppyIdParam) {
-      setState((s) => ({ ...s, selectedPuppyId: puppyIdParam }));
+    const puppyId = params.get("puppyId");
+    if (puppyId) {
+      setState((s) => ({ ...s, selectedPuppyId: puppyId }));
     }
-  }, [puppyIdParam]);
+  }, [params]);
 
   const puppies = puppiesQ.data ?? [];
   const selected = puppies.find((p) => p.id === state.selectedPuppyId) ?? null;
