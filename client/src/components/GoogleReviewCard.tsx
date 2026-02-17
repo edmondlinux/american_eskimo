@@ -26,25 +26,49 @@ const REVIEWS = [
   {
     id: 1,
     author: "Mark & Julia W.",
-    text: "We are so glad we found this website! Our corgi puppy is the sweetest, most energetic puppy we could ask for. The team was very helpful and gave us all the information we needed. We are beyond happy with our new addition!",
+    text: "We brought home our American Eskimo puppy three weeks ago and honestly, we can’t imagine life without him now. He’s playful, super smart, and already learning commands so quickly. The whole process felt personal and stress-free. They answered every question we had (and we had a lot!).",
     rating: 5,
   },
   {
     id: 2,
     author: "Sarah Jenkins",
-    text: "Professional and caring breeder. Our Golden Retriever is healthy and well-socialized. Highly recommend to anyone looking for a high-quality companion.",
+    text: "Our American Eskimo is the happiest little dog. You can tell she was raised with care — she adjusted to our home almost instantly. She’s fluffy, confident, and great with our kids. The communication throughout was clear and reassuring.",
     rating: 5,
   },
   {
     id: 3,
     author: "Robert T.",
-    text: "Clear communication from start to finish. You can tell they really love their dogs and put temperament first. Our new puppy has integrated perfectly into our home.",
+    text: "From the first message to pickup day, everything was smooth. Our American Eskimo puppy is healthy, full of personality, and already very well socialized. He loves everyone he meets. You can tell they prioritize temperament.",
     rating: 5,
   },
   {
     id: 4,
     author: "Emily R.",
-    text: "The best experience I've had with a breeder. They provided everything we needed for the transition. Our little guy is thriving!",
+    text: "I was nervous about getting my first dog, but choosing an American Eskimo from here was the best decision. She came home confident and already used to basic routines. She’s affectionate but also independent in the cutest way.",
+    rating: 5,
+  },
+  {
+    id: 5,
+    author: "Daniel M.",
+    text: "Our American Eskimo has so much personality packed into that fluffy white coat. He’s alert, playful, and incredibly loyal. We appreciated all the updates and photos before pickup day. It made us feel involved the whole time.",
+    rating: 5,
+  },
+  {
+    id: 6,
+    author: "Laura & Ben K.",
+    text: "We did a lot of research before choosing an American Eskimo, and we’re so glad we found this breeder. Our puppy is well-adjusted and very intelligent. Potty training has been much easier than we expected!",
+    rating: 5,
+  },
+  {
+    id: 7,
+    author: "Michelle D.",
+    text: "I’ve owned dogs before, but this American Eskimo is something special. So bright, so loving, and absolutely gorgeous. The entire experience felt professional but still warm and personal.",
+    rating: 5,
+  },
+  {
+    id: 8,
+    author: "Chris P.",
+    text: "Our little American Eskimo settled in within days. He’s playful but not overly hyper, and he bonds closely with the family. We felt supported even after bringing him home, which meant a lot.",
     rating: 5,
   },
 ];

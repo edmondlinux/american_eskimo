@@ -233,10 +233,7 @@ export function SiteShell({
                     Serving families nationwide · Visits by appointment
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">(555) 013-2026</span>
-                </div>
+                
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-muted-foreground" />
                   <span className="text-muted-foreground">americaneskimopuppiesforsale@gmail.com</span>
