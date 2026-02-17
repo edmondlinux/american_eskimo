@@ -11,11 +11,14 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useCreatePuppy, useUpdatePuppy } from "@/hooks/use-puppies";
+import { apiRequest } from "@/lib/queryClient";
+import { Upload, X, ImageIcon } from "lucide-react";
 
 function withCoercion() {
   return insertPuppySchema.extend({
     price: z.coerce.number().int().min(0),
     isAvailable: z.coerce.boolean().optional(),
+    imageUrl: z.string().optional().nullable(),
   });
 }
 
@@ -29,6 +32,7 @@ type FormState = {
   shortDescription: string;
   description: string;
   isAvailable: boolean;
+  imageUrl: string | null;
 };
 
 const emptyState: FormState = {
@@ -41,6 +45,7 @@ const emptyState: FormState = {
   shortDescription: "",
   description: "",
   isAvailable: true,
+  imageUrl: null,
 };
 
 export function PuppyFormDialog({
@@ -59,6 +64,8 @@ export function PuppyFormDialog({
   const update = useUpdatePuppy();
 
   const [state, setState] = React.useState<FormState>(emptyState);
+  const [isUploading, setIsUploading] = React.useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     if (!open) return;
@@ -73,13 +80,44 @@ export function PuppyFormDialog({
         shortDescription: puppy.shortDescription ?? "",
         description: puppy.description ?? "",
         isAvailable: !!puppy.isAvailable,
+        imageUrl: puppy.imageUrl ?? null,
       });
     } else {
       setState(emptyState);
     }
   }, [open, mode, puppy]);
 
-  const pending = create.isPending || update.isPending;
+  const pending = create.isPending || update.isPending || isUploading;
+
+  async function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed");
+
+      const data = await res.json();
+      setState((s) => ({ ...s, imageUrl: data.url }));
+      toast({ title: "Image uploaded", description: "Puppy photo has been saved." });
+    } catch (err: any) {
+      toast({
+        title: "Upload failed",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -89,6 +127,7 @@ export function PuppyFormDialog({
       ...state,
       price: state.price,
       isAvailable: state.isAvailable,
+      imageUrl: state.imageUrl,
     });
 
     if (!parsed.success) {
@@ -140,6 +179,61 @@ export function PuppyFormDialog({
         <ScrollArea className="flex-1 overflow-y-auto">
           <form onSubmit={onSubmit} className="p-6">
             <div className="grid gap-4 md:grid-cols-2">
+              {/* Image Upload Field */}
+              <div className="md:col-span-2 space-y-2">
+                <Label>Puppy Photo</Label>
+                <div 
+                  onClick={() => fileInputRef.current?.click()}
+                  className={cn(
+                    "relative aspect-video w-full rounded-2xl border-2 border-dashed border-border/70 bg-secondary/20 flex flex-col items-center justify-center cursor-pointer hover:bg-secondary/30 transition-all overflow-hidden",
+                    state.imageUrl && "border-none"
+                  )}
+                >
+                  {state.imageUrl ? (
+                    <>
+                      <img src={state.imageUrl} alt="Puppy preview" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <p className="text-white text-sm font-medium">Click to change photo</p>
+                      </div>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="destructive"
+                        className="absolute top-2 right-2 rounded-full h-8 w-8 shadow-lg"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setState(s => ({ ...s, imageUrl: null }));
+                        }}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center gap-2 p-6 text-center">
+                      <div className="h-12 w-12 rounded-full bg-secondary/50 flex items-center justify-center">
+                        {isUploading ? (
+                          <div className="h-5 w-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                          <Upload className="h-6 w-6 text-muted-foreground" />
+                        )}
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium">Click to upload puppy photo</p>
+                        <p className="text-xs text-muted-foreground">JPG, PNG or JPEG (max 5MB)</p>
+                      </div>
+                    </div>
+                  )}
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={onFileChange}
+                    disabled={isUploading}
+                  />
+                </div>
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
                 <Input

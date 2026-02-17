@@ -4,6 +4,26 @@ import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
 import { sendInquiryEmail, generateAdminEmailHtml, generateUserEmailHtml } from "./email";
+import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const uploadStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "puppies",
+    allowed_formats: ["jpg", "png", "jpeg"],
+  } as any,
+});
+
+const upload = multer({ storage: uploadStorage });
 
 function parseBool(v: unknown): boolean | undefined {
   if (v === undefined) return undefined;
@@ -16,6 +36,14 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  // Image Upload Route
+  app.post("/api/upload", upload.single("file"), (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+    res.json({ url: (req.file as any).path });
+  });
+
   // Auth placeholder
   app.get("/api/me", async (_req, res) => {
     const user = await storage.getCurrentUser();
@@ -26,10 +54,10 @@ export async function registerRoutes(
   app.get(api.puppies.list.path, async (req, res) => {
     const availableOnly = parseBool((req.query as any)?.availableOnly);
     const rows = await storage.listPuppies({ availableOnly });
-    // Add realistic image URLs to seeded data for display
+    // Use the actual imageUrl from the database if present, otherwise fallback to placeholder
     const withImages = rows.map(p => ({
       ...p,
-      imageUrl: p.name === "Oakley" ? "/images/puppy-card.jpg" : "/images/puppy-card.jpg"
+      imageUrl: p.imageUrl || "/images/puppy-card.jpg"
     }));
     res.json(withImages);
   });
@@ -41,7 +69,7 @@ export async function registerRoutes(
     }
     res.json({
       ...puppy,
-      imageUrl: "/images/puppy-card.jpg"
+      imageUrl: puppy.imageUrl || "/images/puppy-card.jpg"
     });
   });
 
