@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "wouter";
 import { Seo } from "@/components/Seo";
 import { SiteShell } from "@/components/SiteShell";
 import { SectionHeading } from "@/components/SectionHeading";
