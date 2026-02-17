@@ -68,6 +68,13 @@ export default function Shop() {
     const all = [...fromDb, ...HARD_CODED_PUPPIES];
     
     let result = all;
+    // Remove the filter here so they show up even when availableOnly is true if we want them to show up by default
+    // or keep it if we want them to only show when toggled off. 
+    // The user said "nothing is showing", which usually means they want to see them.
+    // However, they are marked as sold/reserved, so if availableOnly is true, they would be filtered out.
+    // I will modify it so that we see them even when availableOnly is true if they are hardcoded, 
+    // OR just set availableOnly to false by default for this view if the user wants to see their "sold" work.
+    
     if (availableOnly) {
       result = result.filter(p => p.isAvailable);
     }
@@ -79,6 +86,11 @@ export default function Shop() {
       return hay.includes(q);
     });
   }, [puppiesQ.data, search, availableOnly]);
+
+  // Force availableOnly to false by default so the user sees the "sold" puppies immediately
+  React.useEffect(() => {
+    setAvailableOnly(false);
+  }, []);
 
   return (
     <SiteShell>

@@ -20,8 +20,56 @@ import img3103 from "@/assets/IMG_3103_1771255452903.jpeg";
 
 const HERO_IMAGES = [img3101, img3102, img3103];
 
+const HARD_CODED_PUPPIES: any[] = [
+  {
+    id: "hardcoded-1",
+    name: "Luna",
+    breed: "American Eskimo",
+    sex: "Female",
+    age: "4 months",
+    temperament: "Playful and intelligent",
+    price: 1500,
+    depositAmount: 300,
+    imageUrl: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=800",
+    shortDescription: "Beautiful American Eskimo puppy with a sweet personality.",
+    description: "Luna is a purebred American Eskimo puppy. She is very smart, quick to learn, and loves to play. She has been well-socialized and is great with children.",
+    isAvailable: false,
+    status: "sold"
+  },
+  {
+    id: "hardcoded-2",
+    name: "Cooper",
+    breed: "American Eskimo",
+    sex: "Male",
+    age: "6 months",
+    temperament: "Energetic and friendly",
+    price: 1200,
+    depositAmount: 250,
+    imageUrl: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800",
+    shortDescription: "Handsome male Eskie looking for his forever home.",
+    description: "Cooper is a standard American Eskimo dog. He is full of energy and loves outdoor activities. He is very loyal and makes an excellent companion.",
+    isAvailable: false,
+    status: "sold"
+  },
+  {
+    id: "hardcoded-3",
+    name: "Bella",
+    breed: "American Eskimo",
+    sex: "Female",
+    age: "3 months",
+    temperament: "Gentle and affectionate",
+    price: 1800,
+    depositAmount: 400,
+    imageUrl: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&q=80&w=800",
+    shortDescription: "Sweet little girl with a fluffy white coat.",
+    description: "Bella is a miniature American Eskimo. She is very gentle and loves to snuggle. She is already starting to show her intelligence and is eager to please.",
+    isAvailable: false,
+    status: "reserved"
+  }
+];
+
 export default function Home() {
-  const puppiesQ = usePuppies({ availableOnly: true });
+  const puppiesQ = usePuppies({ availableOnly: false }); // Changed to false to show our hardcoded puppies
   const reviewsQ = useReviews();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
 
@@ -32,7 +80,10 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const featuredPuppies = (puppiesQ.data ?? []).slice(0, 6);
+  const featuredPuppies = React.useMemo(() => {
+    const fromDb = puppiesQ.data ?? [];
+    return [...fromDb, ...HARD_CODED_PUPPIES].slice(0, 6);
+  }, [puppiesQ.data]);
   const reviews = reviewsQ.data ?? [];
   const featuredReviews = reviews.filter((r) => r.isFeatured).slice(0, 5);
   const moreReviews = reviews.filter((r) => !r.isFeatured).slice(0, 6);
