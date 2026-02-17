@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useCreatePuppy, useUpdatePuppy } from "@/hooks/use-puppies";
 import { apiRequest } from "@/lib/queryClient";
 import { Upload, X, ImageIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 function withCoercion() {
   return insertPuppySchema.extend({
