@@ -3,15 +3,15 @@ import { Seo } from "@/components/Seo";
 import { SiteShell } from "@/components/SiteShell";
 import { SectionHeading } from "@/components/SectionHeading";
 import { InfoCard } from "@/components/InfoCard";
-import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Contact() {
   return (
     <SiteShell>
       <Seo
-        title="Contact Us — American Eskimo"
-        description="Questions about temperament, timing, or raising approach? Reach out, or start with a simple inquiry."
+        title="Contact Us — American Eskimo Puppies"
+        description="Questions about temperament, availability, or the adoption process? Contact us by email and we’ll respond with honest guidance."
       />
 
       <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
@@ -19,22 +19,21 @@ export default function Contact() {
           <SectionHeading
             eyebrow="Contact"
             title="We reply with care—no rush, no pressure."
-            description="Tell us what you’re looking for, and we’ll respond with honest guidance and next steps."
+            description="All inquiries are handled by email to ensure clear, organized communication and thoughtful responses."
             data-testid="contact-heading"
           />
 
           <div className="mt-6 grid gap-4">
             <InfoCard title="Email" icon={<Mail className="h-5 w-5" />} data-testid="contact-email">
-              hello@americaneskimo.example
+              americaneskimopuppiesforsale@gmail.com
             </InfoCard>
-            <InfoCard title="Phone" icon={<Phone className="h-5 w-5" />} data-testid="contact-phone">
-              (555) 013-2026
+
+            <InfoCard title="Availability" icon={<Clock className="h-5 w-5" />} data-testid="contact-hours">
+              We respond within 1–2 business days.
             </InfoCard>
-            <InfoCard title="Location" icon={<MapPin className="h-5 w-5" />} data-testid="contact-location">
-              Visits by appointment · Serving families nationwide
-            </InfoCard>
-            <InfoCard title="Hours" icon={<Clock className="h-5 w-5" />} data-testid="contact-hours">
-              Mon–Sat · 9am–6pm (local) · We respond within 1–2 business days.
+
+            <InfoCard title="Visits" icon={<MapPin className="h-5 w-5" />} data-testid="contact-location">
+              Visits are scheduled by appointment after initial email inquiry.
             </InfoCard>
           </div>
         </div>
@@ -45,15 +44,16 @@ export default function Contact() {
               Best way to begin
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              For placements, we start with an inquiry so we can match temperament to home. It’s the quickest path to a good fit.
+              To ensure responsible placements, we begin all conversations by email. 
+              Please include details about your home, lifestyle, and timeline so we can guide you properly.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {[
-                { t: "Your lifestyle", d: "Schedule, activity level, household rhythm." },
-                { t: "Your preferences", d: "Breed, age, and temperament tendencies you love." },
+                { t: "Your lifestyle", d: "Work schedule, activity level, and household environment." },
+                { t: "Your preferences", d: "Temperament traits and characteristics you’re looking for." },
                 { t: "Your timeline", d: "When you’d like to welcome a puppy home." },
-                { t: "Your questions", d: "Raising, training, travel, or transition plans." },
+                { t: "Your questions", d: "Care, training, health guarantee, or delivery questions." },
               ].map((x) => (
                 <div key={x.t} className="rounded-3xl border border-border/70 bg-card/70 p-5 shadow-sm">
                   <div className="text-sm font-semibold">{x.t}</div>
@@ -71,6 +71,7 @@ export default function Contact() {
                 Start an inquiry
                 <ArrowRight className="h-4 w-4" />
               </Link>
+
               <Link
                 href="/shop"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/70 bg-card/70 px-5 py-3 text-sm font-semibold text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary focus-ring"
@@ -82,9 +83,10 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 rounded-3xl border border-border/70 bg-secondary/35 p-5">
-              <div className="text-sm font-semibold">Note on privacy</div>
+              <div className="text-sm font-semibold">Privacy Notice</div>
               <p className="mt-1 text-sm text-muted-foreground">
-                We only use your contact details to respond to your inquiry and coordinate next steps.
+                We only use your email address to respond to your inquiry and coordinate next steps. 
+                We do not sell or share your personal information.
               </p>
             </div>
           </div>
