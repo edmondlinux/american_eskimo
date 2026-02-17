@@ -13,17 +13,72 @@ export default function Shop() {
   const [availableOnly, setAvailableOnly] = React.useState(true);
   const [search, setSearch] = React.useState("");
 
+  const HARD_CODED_PUPPIES: any[] = [
+    {
+      id: "hardcoded-1",
+      name: "Luna",
+      breed: "American Eskimo",
+      sex: "Female",
+      age: "4 months",
+      temperament: "Playful and intelligent",
+      price: 1500,
+      depositAmount: 300,
+      imageUrl: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=800",
+      shortDescription: "Beautiful American Eskimo puppy with a sweet personality.",
+      description: "Luna is a purebred American Eskimo puppy. She is very smart, quick to learn, and loves to play. She has been well-socialized and is great with children.",
+      isAvailable: false,
+      status: "sold"
+    },
+    {
+      id: "hardcoded-2",
+      name: "Cooper",
+      breed: "American Eskimo",
+      sex: "Male",
+      age: "6 months",
+      temperament: "Energetic and friendly",
+      price: 1200,
+      depositAmount: 250,
+      imageUrl: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800",
+      shortDescription: "Handsome male Eskie looking for his forever home.",
+      description: "Cooper is a standard American Eskimo dog. He is full of energy and loves outdoor activities. He is very loyal and makes an excellent companion.",
+      isAvailable: false,
+      status: "sold"
+    },
+    {
+      id: "hardcoded-3",
+      name: "Bella",
+      breed: "American Eskimo",
+      sex: "Female",
+      age: "3 months",
+      temperament: "Gentle and affectionate",
+      price: 1800,
+      depositAmount: 400,
+      imageUrl: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&q=80&w=800",
+      shortDescription: "Sweet little girl with a fluffy white coat.",
+      description: "Bella is a miniature American Eskimo. She is very gentle and loves to snuggle. She is already starting to show her intelligence and is eager to please.",
+      isAvailable: false,
+      status: "reserved"
+    }
+  ];
+
   const puppiesQ = usePuppies({ availableOnly });
 
   const filtered = React.useMemo(() => {
-    const all = puppiesQ.data ?? [];
+    const fromDb = puppiesQ.data ?? [];
+    const all = [...fromDb, ...HARD_CODED_PUPPIES];
+    
+    let result = all;
+    if (availableOnly) {
+      result = result.filter(p => p.isAvailable);
+    }
+
     const q = search.trim().toLowerCase();
-    if (!q) return all;
-    return all.filter((p) => {
+    if (!q) return result;
+    return result.filter((p) => {
       const hay = `${p.name} ${p.breed} ${p.sex} ${p.age} ${p.temperament} ${p.shortDescription}`.toLowerCase();
       return hay.includes(q);
     });
-  }, [puppiesQ.data, search]);
+  }, [puppiesQ.data, search, availableOnly]);
 
   return (
     <SiteShell>

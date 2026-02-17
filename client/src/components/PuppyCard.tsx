@@ -67,8 +67,8 @@ export function PuppyCard({
               {puppy.isAvailable ? (
                 <Badge className="border-border/60 bg-accent/12 text-accent hover:bg-accent/12">Available</Badge>
               ) : (
-                <Badge variant="secondary" className="border-border/60 bg-muted text-muted-foreground hover:bg-muted">
-                  Reserved
+                <Badge variant="secondary" className="border-border/60 bg-muted text-muted-foreground hover:bg-muted capitalize">
+                  {(puppy as any).status || "Reserved"}
                 </Badge>
               )}
             </div>
