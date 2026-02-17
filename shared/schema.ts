@@ -68,7 +68,10 @@ export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
 });
 
-export const insertPuppySchema = createInsertSchema(puppies).omit({
+export const insertPuppySchema = createInsertSchema(puppies, {
+  price: z.coerce.number().min(0),
+  depositAmount: z.coerce.number().min(0),
+}).omit({
   id: true,
   createdAt: true,
 });

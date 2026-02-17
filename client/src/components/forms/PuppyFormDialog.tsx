@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 function withCoercion() {
   return insertPuppySchema.extend({
     price: z.coerce.number().int().min(0),
+    depositAmount: z.coerce.number().int().min(0),
     isAvailable: z.coerce.boolean().optional(),
     imageUrl: z.string().optional().nullable(),
   });
@@ -30,6 +31,7 @@ type FormState = {
   age: string;
   temperament: string;
   price: string;
+  depositAmount: string;
   shortDescription: string;
   description: string;
   isAvailable: boolean;
@@ -43,6 +45,7 @@ const emptyState: FormState = {
   age: "",
   temperament: "",
   price: "",
+  depositAmount: "",
   shortDescription: "",
   description: "",
   isAvailable: true,
@@ -78,6 +81,7 @@ export function PuppyFormDialog({
         age: puppy.age ?? "",
         temperament: puppy.temperament ?? "",
         price: String(puppy.price ?? ""),
+        depositAmount: String(puppy.depositAmount ?? ""),
         shortDescription: puppy.shortDescription ?? "",
         description: puppy.description ?? "",
         isAvailable: !!puppy.isAvailable,
@@ -127,6 +131,7 @@ export function PuppyFormDialog({
     const parsed = schema.safeParse({
       ...state,
       price: state.price,
+      depositAmount: state.depositAmount,
       isAvailable: state.isAvailable,
       imageUrl: state.imageUrl,
     });
@@ -305,6 +310,19 @@ export function PuppyFormDialog({
                   className="rounded-xl"
                   placeholder="e.g., 2400"
                   data-testid="puppy-form-price"
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="depositAmount">Deposit Amount (USD)</Label>
+                <Input
+                  id="depositAmount"
+                  inputMode="numeric"
+                  value={state.depositAmount}
+                  onChange={(e) => setState((s) => ({ ...s, depositAmount: e.target.value }))}
+                  className="rounded-xl"
+                  placeholder="e.g., 500"
+                  data-testid="puppy-form-deposit"
                 />
               </div>
 
