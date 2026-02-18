@@ -8,6 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Filter, Search, X, PawPrint } from "lucide-react";
 import { cn } from "@/lib/utils";
+import img3104 from "@/assets/luna.jpeg"
+import img3105 from "@/assets/elma.jpeg"
+import img3106 from "@/assets/aston.jpeg"
+
 
 export default function Shop() {
   const [availableOnly, setAvailableOnly] = React.useState(true);
@@ -19,11 +23,11 @@ export default function Shop() {
       name: "Luna",
       breed: "American Eskimo",
       sex: "Female",
-      age: "4 months",
+      age: "11 Weeks",
       temperament: "Playful and intelligent",
-      price: 1500,
-      depositAmount: 300,
-      imageUrl: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=800",
+      price: 750,
+      depositAmount: 350,
+      imageUrl:img3104,
       shortDescription: "Beautiful American Eskimo puppy with a sweet personality.",
       description: "Luna is a purebred American Eskimo puppy. She is very smart, quick to learn, and loves to play. She has been well-socialized and is great with children.",
       isAvailable: false,
@@ -31,31 +35,31 @@ export default function Shop() {
     },
     {
       id: "hardcoded-2",
-      name: "Cooper",
+      name: "Elma",
       breed: "American Eskimo",
-      sex: "Male",
-      age: "6 months",
+      sex: "Female",
+      age: "20 Weeks",
       temperament: "Energetic and friendly",
-      price: 1200,
-      depositAmount: 250,
-      imageUrl: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800",
-      shortDescription: "Handsome male Eskie looking for his forever home.",
-      description: "Cooper is a standard American Eskimo dog. He is full of energy and loves outdoor activities. He is very loyal and makes an excellent companion.",
+      price: 750,
+      depositAmount: 350,
+      imageUrl:img3105,
+      shortDescription: "Pretty female Eskie looking for her forever home.",
+      description: "Elma is a standard American Eskimo dog. she is full of energy and loves outdoor activities. She is very loyal and makes an excellent companion.",
       isAvailable: false,
       status: "sold"
     },
     {
       id: "hardcoded-3",
-      name: "Bella",
+      name: "Aston",
       breed: "American Eskimo",
-      sex: "Female",
-      age: "3 months",
+      sex: "Male",
+      age: "16 Weeks",
       temperament: "Gentle and affectionate",
-      price: 1800,
-      depositAmount: 400,
-      imageUrl: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&q=80&w=800",
-      shortDescription: "Sweet little girl with a fluffy white coat.",
-      description: "Bella is a miniature American Eskimo. She is very gentle and loves to snuggle. She is already starting to show her intelligence and is eager to please.",
+      price: 750,
+      depositAmount: 350,
+      imageUrl:img3106,
+      shortDescription: "Sweet little Boy with a fluffy white coat.",
+      description: "Aston is a miniature American Eskimo. He is very gentle and loves to snuggle. He is already starting to show his intelligence and is eager to please.",
       isAvailable: false,
       status: "reserved"
     }
