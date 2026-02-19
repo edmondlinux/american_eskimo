@@ -15,7 +15,7 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 5,
     testimonialText: "We adopted our little Eskie, Luna, three months ago and she has been the perfect addition to our family. The communication throughout the process was excellent.",
     isFeatured: true,
-    createdAt: new Date(),
+    createdAt: new Date("2023-11-15"),
   },
   {
     id: "static-2",
@@ -23,7 +23,7 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 5,
     testimonialText: "Professional and caring. You can tell these puppies are raised with a lot of love. Our boy is healthy, happy, and so smart!",
     isFeatured: true,
-    createdAt: new Date(),
+    createdAt: new Date("2022-08-22"),
   },
   {
     id: "static-3",
@@ -31,7 +31,7 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 4,
     testimonialText: "Great experience overall. The puppy was well-socialized and adjusted to our home very quickly. Highly recommend!",
     isFeatured: false,
-    createdAt: new Date(),
+    createdAt: new Date("2021-03-10"),
   },
   {
     id: "static-4",
@@ -39,7 +39,7 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 5,
     testimonialText: "Beautiful dogs and wonderful people to work with. They answered all our questions and made the transition so smooth for us and the puppy.",
     isFeatured: true,
-    createdAt: new Date(),
+    createdAt: new Date("2020-05-18"),
   },
   {
     id: "static-5",
@@ -47,7 +47,7 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 5,
     testimonialText: "Our American Eskimo is now 1 year old and is the healthiest dog we've ever owned. Thank you for such a wonderful companion!",
     isFeatured: true,
-    createdAt: new Date(),
+    createdAt: new Date("2024-01-05"),
   },
   {
     id: "static-6",
@@ -55,7 +55,39 @@ const HARDCODED_REVIEWS: Review[] = [
     rating: 4,
     testimonialText: "Very happy with our new family member. The process was straightforward and the breeder was very helpful with advice for the first few weeks.",
     isFeatured: false,
-    createdAt: new Date(),
+    createdAt: new Date("2020-12-30"),
+  },
+  {
+    id: "static-7",
+    reviewerName: "Linda Martinez",
+    rating: 5,
+    testimonialText: "Absolutely in love with our new puppy! The care and attention given to these dogs are evident from day one.",
+    isFeatured: true,
+    createdAt: new Date("2021-07-14"),
+  },
+  {
+    id: "static-8",
+    reviewerName: "James Anderson",
+    rating: 5,
+    testimonialText: "A top-tier breeder. Our Eskie is not only beautiful but has a fantastic temperament. We couldn't be happier.",
+    isFeatured: true,
+    createdAt: new Date("2022-11-02"),
+  },
+  {
+    id: "static-9",
+    reviewerName: "Sophia Garcia",
+    rating: 4,
+    testimonialText: "Great support after bringing the puppy home. They really care about where their dogs go.",
+    isFeatured: false,
+    createdAt: new Date("2020-09-25"),
+  },
+  {
+    id: "static-10",
+    reviewerName: "William Lee",
+    rating: 5,
+    testimonialText: "The most intelligent dog I've ever owned. The breeding quality is clearly superior.",
+    isFeatured: true,
+    createdAt: new Date("2023-04-12"),
   },
 ];
 
