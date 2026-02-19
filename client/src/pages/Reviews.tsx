@@ -6,13 +6,66 @@ import { ReviewCard } from "@/components/ReviewCard";
 import { useReviews } from "@/hooks/use-reviews";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
+import { type Review } from "@shared/schema";
+
+const HARDCODED_REVIEWS: Review[] = [
+  {
+    id: "static-1",
+    reviewerName: "Sarah Johnson",
+    rating: 5,
+    testimonialText: "We adopted our little Eskie, Luna, three months ago and she has been the perfect addition to our family. The communication throughout the process was excellent.",
+    isFeatured: true,
+    createdAt: new Date(),
+  },
+  {
+    id: "static-2",
+    reviewerName: "Michael Chen",
+    rating: 5,
+    testimonialText: "Professional and caring. You can tell these puppies are raised with a lot of love. Our boy is healthy, happy, and so smart!",
+    isFeatured: true,
+    createdAt: new Date(),
+  },
+  {
+    id: "static-3",
+    reviewerName: "Emily Rodriguez",
+    rating: 4,
+    testimonialText: "Great experience overall. The puppy was well-socialized and adjusted to our home very quickly. Highly recommend!",
+    isFeatured: false,
+    createdAt: new Date(),
+  },
+  {
+    id: "static-4",
+    reviewerName: "David Wilson",
+    rating: 5,
+    testimonialText: "Beautiful dogs and wonderful people to work with. They answered all our questions and made the transition so smooth for us and the puppy.",
+    isFeatured: true,
+    createdAt: new Date(),
+  },
+  {
+    id: "static-5",
+    reviewerName: "Jessica Taylor",
+    rating: 5,
+    testimonialText: "Our American Eskimo is now 1 year old and is the healthiest dog we've ever owned. Thank you for such a wonderful companion!",
+    isFeatured: true,
+    createdAt: new Date(),
+  },
+  {
+    id: "static-6",
+    reviewerName: "Robert Brown",
+    rating: 4,
+    testimonialText: "Very happy with our new family member. The process was straightforward and the breeder was very helpful with advice for the first few weeks.",
+    isFeatured: false,
+    createdAt: new Date(),
+  },
+];
 
 export default function Reviews() {
   const reviewsQ = useReviews();
   const [q, setQ] = React.useState("");
 
   const filtered = React.useMemo(() => {
-    const all = reviewsQ.data ?? [];
+    const fromDb = reviewsQ.data ?? [];
+    const all = [...HARDCODED_REVIEWS, ...fromDb];
     const s = q.trim().toLowerCase();
     if (!s) return all;
     return all.filter((r) => `${r.reviewerName} ${r.testimonialText}`.toLowerCase().includes(s));
