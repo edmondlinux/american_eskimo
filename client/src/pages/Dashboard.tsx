@@ -61,7 +61,7 @@ export default function Dashboard() {
   const [contactPhone, setContactPhone] = React.useState("");
 
   React.useEffect(() => {
-    if (settingsQ.data) {
+    if (settingsQ.data && Array.isArray(settingsQ.data)) {
       const phone = settingsQ.data.find((s: any) => s.key === "contact_phone")?.value;
       if (phone) setContactPhone(phone);
     }
@@ -588,7 +588,7 @@ export default function Dashboard() {
         description={`Are you sure you want to delete "${confirmCtx?.title}"? This action cannot be undone.`}
         onConfirm={confirmDelete}
         confirmText="Delete"
-        variant="destructive"
+        destructive={true}
       />
     </SiteShell>
   );

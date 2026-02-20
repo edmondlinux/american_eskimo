@@ -5,6 +5,7 @@ import {
   puppies,
   reviews,
   users,
+  siteSettings,
   type CreateInquiryRequest,
   type CreatePuppyRequest,
   type CreateReviewRequest,
@@ -16,6 +17,7 @@ import {
   type CurrentUserResponse,
   type User,
   type InsertUser,
+  type SiteSetting,
 } from "@shared/schema";
 
 export interface IStorage {

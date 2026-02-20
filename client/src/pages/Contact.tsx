@@ -9,7 +9,7 @@ import { useSettings } from "@/hooks/use-settings";
 
 export default function Contact() {
   const settingsQ = useSettings();
-  const contactPhone = settingsQ.data?.find((s: any) => s.key === "contact_phone")?.value || "+1 (555) 000-0000";
+  const contactPhone = (Array.isArray(settingsQ.data) ? settingsQ.data : [])?.find((s: any) => s.key === "contact_phone")?.value || "+1 (555) 000-0000";
 
   return (
     <SiteShell>
