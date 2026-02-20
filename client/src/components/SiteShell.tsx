@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { PawPrint, Menu, Shield, Mail, Phone, MapPin, LogOut, User as UserIcon } from "lucide-react";
 import logo from "@/assets/logo.png.png";
 import { useCurrentUser, useLogout } from "@/hooks/use-auth";
+import { useSettings } from "@/hooks/use-settings";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -46,6 +47,9 @@ export function SiteShell({
 }) {
   const { data: user } = useCurrentUser();
   const logout = useLogout();
+  const settingsQ = useSettings();
+
+  const contactPhone = settingsQ.data?.find((s: any) => s.key === "contact_phone")?.value || "+1 (555) 000-0000";
 
   return (
     <div className={cn("min-h-screen bg-atelier grain-overlay", tone === "hero" && "relative")}>
@@ -237,6 +241,10 @@ export function SiteShell({
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-muted-foreground" />
                   <span className="text-muted-foreground">americaneskimopuppiesforsale@gmail.com</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">{contactPhone}</span>
                 </div>
               </div>
 

@@ -19,8 +19,9 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import type { Puppy, Review } from "@shared/schema";
-import { Plus, Shield, Lock, Trash2, Pencil, Search, Inbox, PawPrint, Star } from "lucide-react";
+import { Plus, Shield, Lock, Trash2, Pencil, Search, Inbox, PawPrint, Star, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSettings, useUpdateSetting } from "@/hooks/use-settings";
 
 function SignInRequired() {
   return (
@@ -55,6 +56,25 @@ function SignInRequired() {
 export default function Dashboard() {
   const { toast } = useToast();
   const meQ = useCurrentUser();
+  const settingsQ = useSettings();
+  const updateSetting = useUpdateSetting();
+  const [contactPhone, setContactPhone] = React.useState("");
+
+  React.useEffect(() => {
+    if (settingsQ.data) {
+      const phone = settingsQ.data.find((s: any) => s.key === "contact_phone")?.value;
+      if (phone) setContactPhone(phone);
+    }
+  }, [settingsQ.data]);
+
+  const handleUpdatePhone = async () => {
+    try {
+      await updateSetting.mutateAsync({ key: "contact_phone", value: contactPhone });
+      toast({ title: "Settings updated", description: "Contact phone number has been updated." });
+    } catch (err: any) {
+      toast({ title: "Update failed", description: err.message, variant: "destructive" });
+    }
+  };
 
   const puppiesQ = usePuppies({ availableOnly: false });
   const inquiriesQ = useInquiries();
@@ -64,10 +84,9 @@ export default function Dashboard() {
   const deleteReview = useDeleteReview();
 
   const user = meQ.data;
-
   const isAdmin = user?.role === "admin";
 
-  const [tab, setTab] = React.useState<"puppies" | "inquiries" | "reviews">("puppies");
+  const [tab, setTab] = React.useState<"puppies" | "inquiries" | "reviews" | "settings">("puppies");
 
   const [puppySearch, setPuppySearch] = React.useState("");
   const [reviewSearch, setReviewSearch] = React.useState("");
@@ -199,6 +218,10 @@ export default function Dashboard() {
                     <Star className="mr-2 h-4 w-4" />
                     Reviews
                   </TabsTrigger>
+                  <TabsTrigger value="settings" className="rounded-xl data-[state=active]:bg-card data-[state=active]:shadow-sm" data-testid="dashboard-tab-settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </TabsTrigger>
                 </TabsList>
 
                 <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
@@ -258,6 +281,10 @@ export default function Dashboard() {
                         New review
                       </Button>
                     </>
+                  ) : tab === "settings" ? (
+                    <div className="text-sm text-muted-foreground">
+                      Manage global site configuration.
+                    </div>
                   ) : (
                     <div className="text-sm text-muted-foreground">
                       Inquiries are read-only in this MVP UI.
@@ -495,6 +522,46 @@ export default function Dashboard() {
                   </div>
                 )}
               </TabsContent>
+
+              <TabsContent value="settings" className="mt-0">
+                <div className="surface-card grain-overlay rounded-3xl border border-border/70 bg-card/60 p-6 shadow-sm max-w-lg">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="rounded-xl bg-primary/10 p-2">
+                      <Settings className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Site Configuration</h3>
+                      <p className="text-sm text-muted-foreground">Update global contact details and app settings.</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold text-foreground/80">Support Contact Phone</label>
+                      <div className="flex gap-2">
+                        <Input 
+                          value={contactPhone} 
+                          onChange={(e) => setContactPhone(e.target.value)}
+                          placeholder="e.g. +1 (555) 000-0000"
+                          className="rounded-xl border-border/70 bg-card/70 focus-ring"
+                          data-testid="input-contact-phone"
+                        />
+                        <Button 
+                          onClick={handleUpdatePhone} 
+                          disabled={updateSetting.isPending || !isAdmin}
+                          className="rounded-xl bg-gradient-to-r from-primary to-primary/85 text-primary-foreground shadow-md shadow-primary/20 hover:shadow-lg transition-all btn-sheen"
+                          data-testid="button-save-phone"
+                        >
+                          {updateSetting.isPending ? "Saving..." : "Save"}
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        This phone number will be displayed in the footer and contact page.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
             </Tabs>
           </div>
         )}
@@ -517,13 +584,11 @@ export default function Dashboard() {
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
-        title={confirmCtx ? `Delete ${confirmCtx.kind === "puppy" ? "listing" : "review"}` : "Delete"}
-        description={confirmCtx ? `This will permanently remove “${confirmCtx.title}”. You can’t undo this action.` : "This action cannot be undone."}
-        confirmText="Delete"
-        destructive
+        title={`Delete ${confirmCtx?.kind === "puppy" ? "listing" : "review"}?`}
+        description={`Are you sure you want to delete "${confirmCtx?.title}"? This action cannot be undone.`}
         onConfirm={confirmDelete}
-        isPending={deletePuppy.isPending || deleteReview.isPending}
-        data-testid="dashboard-confirm-delete"
+        confirmText="Delete"
+        variant="destructive"
       />
     </SiteShell>
   );

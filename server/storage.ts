@@ -41,6 +41,11 @@ export interface IStorage {
   createReview(input: CreateReviewRequest): Promise<Review>;
   updateReview(id: string, updates: UpdateReviewRequest): Promise<Review | undefined>;
   deleteReview(id: string): Promise<boolean>;
+
+  // Site Settings
+  getSiteSetting(key: string): Promise<SiteSetting | undefined>;
+  updateSiteSetting(key: string, value: string): Promise<SiteSetting>;
+  listSiteSettings(): Promise<SiteSetting[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -134,6 +139,27 @@ export class DatabaseStorage implements IStorage {
   async deleteReview(id: string): Promise<boolean> {
     const [row] = await db.delete(reviews).where(eq(reviews.id, id)).returning();
     return !!row;
+  }
+
+  async getSiteSetting(key: string): Promise<SiteSetting | undefined> {
+    const [row] = await db.select().from(siteSettings).where(eq(siteSettings.key, key));
+    return row;
+  }
+
+  async updateSiteSetting(key: string, value: string): Promise<SiteSetting> {
+    const [row] = await db
+      .insert(siteSettings)
+      .values({ key, value })
+      .onConflictDoUpdate({
+        target: siteSettings.key,
+        set: { value },
+      })
+      .returning();
+    return row;
+  }
+
+  async listSiteSettings(): Promise<SiteSetting[]> {
+    return await db.select().from(siteSettings);
   }
 }
 

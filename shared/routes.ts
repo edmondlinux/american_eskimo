@@ -141,6 +141,25 @@ export const api = {
       },
     },
   },
+  settings: {
+    list: {
+      method: "GET" as const,
+      path: "/api/settings" as const,
+      responses: {
+        200: z.array(z.object({ key: z.string(), value: z.string() })),
+      },
+    },
+    update: {
+      method: "POST" as const,
+      path: "/api/settings" as const,
+      input: z.object({ key: z.string(), value: z.string() }),
+      responses: {
+        200: z.object({ key: z.string(), value: z.string() }),
+        400: errorSchemas.validation,
+        401: errorSchemas.unauthorized,
+      },
+    },
+  },
 };
 
 export function buildUrl(

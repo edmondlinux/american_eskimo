@@ -3,10 +3,14 @@ import { Seo } from "@/components/Seo";
 import { SiteShell } from "@/components/SiteShell";
 import { SectionHeading } from "@/components/SectionHeading";
 import { InfoCard } from "@/components/InfoCard";
-import { Mail, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Clock, ArrowRight, Phone } from "lucide-react";
 import { Link } from "wouter";
+import { useSettings } from "@/hooks/use-settings";
 
 export default function Contact() {
+  const settingsQ = useSettings();
+  const contactPhone = settingsQ.data?.find((s: any) => s.key === "contact_phone")?.value || "+1 (555) 000-0000";
+
   return (
     <SiteShell>
       <Seo
@@ -26,6 +30,10 @@ export default function Contact() {
           <div className="mt-6 grid gap-4">
             <InfoCard title="Email" icon={<Mail className="h-5 w-5" />} data-testid="contact-email">
               americaneskimopuppiesforsale@gmail.com
+            </InfoCard>
+
+            <InfoCard title="Phone" icon={<Phone className="h-5 w-5" />} data-testid="contact-phone">
+              {contactPhone}
             </InfoCard>
 
             <InfoCard title="Availability" icon={<Clock className="h-5 w-5" />} data-testid="contact-hours">

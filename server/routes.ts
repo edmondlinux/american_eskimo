@@ -214,5 +214,27 @@ export async function registerRoutes(
     res.status(204).send();
   });
 
+  // Settings
+  app.get(api.settings.list.path, async (_req, res) => {
+    const rows = await storage.listSiteSettings();
+    res.json(rows);
+  });
+
+  app.post(api.settings.update.path, async (req, res) => {
+    try {
+      const { key, value } = api.settings.update.input.parse(req.body);
+      const updated = await storage.updateSiteSetting(key, value);
+      res.json(updated);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0]?.message ?? "Invalid request",
+          field: err.errors[0]?.path?.join("."),
+        });
+      }
+      throw err;
+    }
+  });
+
   return httpServer;
 }
